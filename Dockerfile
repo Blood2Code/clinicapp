@@ -11,4 +11,4 @@ COPY . /app
 EXPOSE 5005
 
 # Define the command to run your Spring Boot application in debug mode
-#CMD ["java", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005", "-jar", "clinickapp-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005", "-jar", "clinickapp-0.0.1-SNAPSHOT.jar"]
