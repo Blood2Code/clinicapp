@@ -1,7 +1,6 @@
 
 package com.example.clinickapp.dto;
 
-import com.example.clinickapp.entity.Patient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

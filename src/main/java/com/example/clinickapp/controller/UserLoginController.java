@@ -45,7 +45,7 @@ public class UserLoginController {
     }
     @DeleteMapping("/{id}")
     @ApiOperation(value = "Delete users")
-    public ResponseEntity<ResponseDto> deleteUserById(@PathVariable Long id) {
+    public ResponseEntity<ResponseDto<String>> deleteUserById(@PathVariable Long id) {
         userLoginService.deleteUserById(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

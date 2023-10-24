@@ -3,7 +3,6 @@ package com.example.clinickapp.service.mapper;
 import com.example.clinickapp.dto.PatientDto;
 import com.example.clinickapp.dto.UtilizationDto;
 import com.example.clinickapp.entity.Patient;
-import com.example.clinickapp.entity.Treatments;
 import com.example.clinickapp.entity.Utilization;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;

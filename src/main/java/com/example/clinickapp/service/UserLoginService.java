@@ -65,7 +65,7 @@ public class UserLoginService {
         }
     }
 
-    public ResponseDto deleteUserById(Long id) {
+    public ResponseDto<String> deleteUserById(Long id) {
         try {
             userLoginRepository.deleteById(id);
             return buildSuccessResponse("User with ID " + id + " has been successfully deleted.");
