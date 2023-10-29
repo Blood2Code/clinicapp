@@ -1,21 +1,54 @@
 package com.example.clinickapp.service;
 
+import com.example.clinickapp.dto.LoginDto;
 import com.example.clinickapp.dto.ResponseDto;
 import com.example.clinickapp.dto.UserLoginDto;
 import com.example.clinickapp.entity.UserLogin;
 import com.example.clinickapp.repository.UserLoginRepository;
+
 import com.example.clinickapp.service.mapper.UserLoginMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class UserLoginService {
+public class UserLoginService implements UserDetailsService {
     private final UserLoginRepository userLoginRepository;
     private final UserLoginMapper userLoginMapper;
+    public static Map<Long, UserLoginDto> userMap = new HashMap<>();
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserLogin userLogin = userLoginRepository.findFirstByName(username).get();
+        return userLoginMapper.toDto(userLogin);
+    }
+
+    public ResponseDto<LoginDto> login(LoginDto loginDto) {
+        try {
+            UserLogin userLogin = userLoginRepository.findFirstByName(loginDto.getUsername()).orElseThrow(
+                    () -> new UsernameNotFoundException(String.format("User with username %s not found", loginDto.getUsername()))
+            );
+
+            if (!userLogin.getPassword().equals(loginDto.getPassword())) {
+                throw new BadCredentialsException("Password is incorrect");
+            }
+            userMap.put(userLogin.getId(), userLoginMapper.toDto(userLogin));
+
+            return buildSuccessResponse(loginDto);
+        } catch (Exception ex) {
+            return buildFailureResponse("Failed to find user: " + ex.getMessage());
+        }
+    }
+
 
     public ResponseDto<UserLoginDto> createUser(UserLoginDto userLoginDto) {
         try {
@@ -77,6 +110,7 @@ public class UserLoginService {
     private <T> ResponseDto<T> buildSuccessResponse(T data) {
         return ResponseDto.<T>builder()
                 .code(0)
+                .success(true)
                 .data(data)
                 .build();
     }
