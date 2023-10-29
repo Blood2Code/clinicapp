@@ -7,6 +7,7 @@ import com.example.clinickapp.repository.PatientRepository;
 import com.example.clinickapp.service.mapper.PatientMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.List;
 import java.util.Optional;
