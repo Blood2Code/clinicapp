@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -17,12 +18,12 @@ public class PatientDto {
     private String name;
     private String surname;
     private String gender;
-    private Date birthDate;
+    private LocalDateTime birthDate;
     private String passportSerial;
-    private Date receivedDate;
+    private LocalDateTime receivedDate;
     private Integer wardNumber;
     private Integer wardBedNumber;
-    private Date wardedDate;
+    private LocalDateTime wardedDate;
     private String illness;
     private String diagnosis;
     private List<TreatmentsDto> treatments;
