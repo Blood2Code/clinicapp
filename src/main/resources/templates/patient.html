@@ -5,40 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bemor qabul qilish</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style/style.css">
-    <script src="js/script.js" defer></script>
-    <script rc="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 </head>
 <body>
-    <div class="container">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="#">Item 1</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Item 2</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Item 3</a>
-            </li>
-          </ul>
+
+
+    <div class="offcanvas offcanvas-start bg-primary" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasScrollingLabel">E-Clinic mini</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-      </div>
+        <div class="offcanvas-body">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="#">Bemor qabuli</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="/api/patients/all">Barcha bemorlar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="#">Link</a>
+                </li>
+            </ul>
+        </div>
+    </div>
       
     
     <div class="container mt-5">
+
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Bemorni ro'yhatga olish</h5>
-                        <form id="patient-form">
+                    <div class="card-body ">
+                        <div class="justify-content-between d-flex">
+                            <h5 class="card-title">Bemorni ro'yhatga olish</h5>
+                            <button class="btn btn-primary float-right" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Menu</button>
+                        </div>
+                        <form th:action="@{/api/patients/create}" id="patient-form" th:object="${patientDto}" method="post">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Ism</label>
                                 <input type="text" class="form-control" id="name" name="name" required>
@@ -60,31 +65,35 @@
                             </div>
                             <div class="mb-3">
                                 <label for="age" class="form-label">Tug'ilgan sanasi</label>
-                                <input type="date" class="form-control" id="age" name="age" required>
+                                <input type="datetime-local" class="form-control" id="age" name="birthDate" pattern="\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z" required>
                             </div>
                             <div class="mb-3">
-                                <label for="passport" class="form-label">Pasport Seriya</label>
-                                <input type="text" class="form-control" id="passport" name="passport" required>
+                                <label for="passportSerial" class="form-label">Pasport Seriya</label>
+                                <input type="text" class="form-control" id="passportSerial" name="passportSerial" required>
                             </div>
                             <div class="mb-3">
-                                <label for="palata_raqami" class="form-label">Palata raqami</label>
-                                <input type="text" class="form-control" id="palata_raqami" name="palata_raqami" required>
+                                <label for="receivedDate" class="form-label">Bemor qabul qilingan sana</label>
+                                <input type="datetime-local" class="form-control" id="receivedDate" name="receivedDate" pattern="\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z" required>
                             </div>
                             <div class="mb-3">
-                                <label for="palata_joy_raqami" class="form-label">Palatadagi joy raqami</label>
-                                <input type="text" class="form-control" id="palata_joy_raqami" name="palata_joy_raqami" required>
+                                <label for="wardNumber" class="form-label">Palata raqami</label>
+                                <input type="text" class="form-control" id="wardNumber" name="wardNumber" required>
                             </div>
                             <div class="mb-3">
-                                <label for="palata_yotkizilgan_sana" class="form-label">Palatadagi yotkizilgan sana</label>
-                                <input type="date" class="form-control" id="palata_yotkizilgan_sana" name="palata_yotkizilgan_sana" required>
+                                <label for="wardBedNumber" class="form-label">Palatadagi joy raqami</label>
+                                <input type="text" class="form-control" id="wardBedNumber" name="wardBedNumber" required>
                             </div>
                             <div class="mb-3">
-                                <label for="kasallik" class="form-label">Kasallik</label>
-                                <input type="text" class="form-control" id="kasallik" name="kasallik" required>
+                                <label for="wardedDate" class="form-label">Palatadagi yotkizilgan sana</label>
+                                <input type="datetime-local" class="form-control" id="wardedDate" name="wardedDate" pattern="\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z" required>
                             </div>
                             <div class="mb-3">
-                                <label for="tashxis" class="form-label">Tashxis</label>
-                                <input type="text" class="form-control" id="tashxis" name="tashxis" required>
+                                <label for="illness" class="form-label">Kasallik</label>
+                                <input type="text" class="form-control" id="illness" name="illness" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="diagnosis" class="form-label">Tashxis</label>
+                                <input type="text" class="form-control" id="diagnosis" name="diagnosis" required>
                             </div>
                             <button type="submit" class="btn btn-primary float-end">Saqlash</button>
                         </form>
@@ -93,6 +102,7 @@
             </div>
         </div>
     </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
