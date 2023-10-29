@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -17,7 +18,7 @@ public class Utilization {
     private Long id;
     private String type;
     private String name;
-    private Date usedDate;
+    private LocalDateTime usedDate;
     @ManyToOne
     private UserLogin byWhom;
     @ManyToOne
