@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Builder
@@ -15,7 +16,7 @@ public class UtilizationDto {
     private Long id;
     private String type;
     private String name;
-    private Date usedDate;
+    private LocalDateTime usedDate;
     private UserLoginDto byWhom;
     private PatientDto patient;
     private Integer quantity;
